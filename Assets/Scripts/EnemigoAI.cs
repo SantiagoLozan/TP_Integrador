@@ -26,6 +26,11 @@ public class EnemigoAI : MonoBehaviour
     public float rangoVision, rangoAtaque;
     public bool jugadorEnRangoVision, jugadorEnRangoAtaque;
 
+    private enum Estado { Idle, Patrullar, Perseguir, Atacar }
+    private Estado estadoActual;
+    private bool jugadorSeMovio;
+    private Vector3 posicionInicialJugador;
+
     private void Awake()
     {
         jugador = GameObject.Find("Jugador").transform;
@@ -37,16 +42,67 @@ public class EnemigoAI : MonoBehaviour
         {
             Debug.LogError("No se encontró el componente NavMeshAgent en el objeto " + gameObject.name);
         }
+        estadoActual = Estado.Idle;
+        posicionInicialJugador = jugador.position;
+        jugadorSeMovio = false;
     }
 
     private void Update()
     {
+        if (Vector3.Distance(posicionInicialJugador, jugador.position) > 0.1f)
+        {
+            jugadorSeMovio = true;
+        }
+
         jugadorEnRangoVision = Physics.CheckSphere(transform.position, rangoVision, esJugador);
         jugadorEnRangoAtaque = Physics.CheckSphere(transform.position, rangoAtaque, esJugador);
 
-        if (!jugadorEnRangoVision && !jugadorEnRangoAtaque) Recorrer();
-        if (jugadorEnRangoVision) PerseguirJugador();
-        if (jugadorEnRangoAtaque && jugadorEnRangoVision) AtacarJugador();
+        // Manejo de estados
+        switch (estadoActual)
+        {
+            case Estado.Idle:
+                Idle();
+                break;
+            case Estado.Patrullar:
+                Recorrer();
+                break;
+            case Estado.Perseguir:
+                PerseguirJugador();
+                break;
+            case Estado.Atacar:
+                AtacarJugador();
+                break;
+        }
+
+        // Cambiar de estado basado en la distancia al jugador
+        if (estadoActual != Estado.Atacar)
+        {
+            if (jugadorEnRangoAtaque && jugadorEnRangoVision)
+                estadoActual = Estado.Atacar;
+            else if (jugadorEnRangoVision)
+                estadoActual = Estado.Perseguir;
+            else if (jugadorSeMovio)
+                estadoActual = Estado.Patrullar;
+            else
+                estadoActual = Estado.Idle; // Cambia al estado Idle si el jugador no se ha movido
+        }
+        else
+        {
+            // Si el jugador ya no está en rango de ataque, volver a patrullar
+            if (!jugadorEnRangoAtaque)
+            {
+                if (jugadorEnRangoVision)
+                    estadoActual = Estado.Perseguir;
+                else
+                    estadoActual = Estado.Patrullar;
+            }
+        }
+    }
+
+    private void Idle()
+    {
+        // Mantener al enemigo en su posición actual
+        agente.SetDestination(transform.position);
     }
 
     private void Recorrer()
@@ -124,7 +180,7 @@ public class EnemigoAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("SceneFinal"); // Cambia "SceneFinal" por el nombre de la escena que quieres cargar.
+            //SceneManager.LoadScene("SceneFinal"); // Cambia "SceneFinal" por el nombre de la escena que quieres cargar.
         }
     }
 }
