@@ -115,7 +115,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6892479595414590392}
   serializedVersion: 4
-  m_Mass: 1.5
+  m_Mass: 1.9
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -147,6 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  groundLayer:
+  esSuelo:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0

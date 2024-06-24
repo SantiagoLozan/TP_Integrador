@@ -799,7 +799,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b6a2b9d03ec3f1343b77221a005c3e04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1049,8 +1049,8 @@ MonoBehaviour:
   caminarPuntoRango: 5
   tiempoEntreAtaque: 1
   proyectile: {fileID: 6892479595414590392, guid: cb3249dce61797345b112f61c5388afb, type: 3}
-  rangoVision: 60
-  rangoAtaque: 20
+  rangoVision: 20
+  rangoAtaque: 13
   jugadorEnRangoVision: 0
   jugadorEnRangoAtaque: 0
 --- !u!64 &1243725559

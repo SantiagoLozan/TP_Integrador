@@ -60,7 +60,7 @@ public class s_Timer : MonoBehaviour
 
         if (timer == 0)
         {
-            SceneManager.LoadScene("SceneFinal");
+            SceneManager.LoadScene("SceneGanador");
         }
     }
 }

@@ -15,11 +15,9 @@ public class s_Proyectil : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("hit", playerHealth);
         }
-        else if (collision.gameObject.CompareTag("suelo"))
+        else
         {
-            Destroy(gameObject);
-
-
+            Destroy(gameObject, 5f);
         }
     }
 }
