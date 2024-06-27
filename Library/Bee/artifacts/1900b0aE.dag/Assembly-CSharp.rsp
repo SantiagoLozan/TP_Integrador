@@ -360,6 +360,10 @@
 "Assets/Scripts/EnemigoAI.cs"
 "Assets/Scripts/MovimientoPersonaje.cs"
 "Assets/Scripts/SceneManager.cs"
+"Assets/Scripts/s_JugadorVida.cs"
+"Assets/Scripts/s_Proyectil.cs"
+"Assets/Scripts/s_SceneManager.cs"
+"Assets/Scripts/s_Timer.cs"
 -langversion:9.0
 
 /deterministic
